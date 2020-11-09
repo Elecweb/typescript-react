@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Provider,
+  defaultTheme,
+  Button,
+  Header,
+  Content,
+  Grid,
+  View,
+} from "@adobe/react-spectrum";
+import { Router } from "@reach/router";
+import FirebaseProvider from "./FirebaseProvider";
+import List from "./pages/List";
+import "./App.css";
+import Create from "./pages/Create";
+import Edit from "./pages/Edit";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider theme={defaultTheme}>
+      <FirebaseProvider>
+        <Grid rows={["size-1000", "auto"]} columns="1fr" height="100vh">
+          <View paddingTop="size-600">
+            <Router>
+              <List path="/" />
+              <Create path="/create" />
+              <Edit path="/edit/:employee" />
+            </Router>
+          </View>
+        </Grid>
+      </FirebaseProvider>
+    </Provider>
   );
 }
 
